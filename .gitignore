@@ -1,2 +1,4 @@
 .vscode/
 *egg-info/
+gym_opendoor_mc/env/__pychache__/
+*.pyc

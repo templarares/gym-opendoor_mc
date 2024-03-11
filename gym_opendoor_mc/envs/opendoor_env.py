@@ -170,126 +170,6 @@ def start_callback(action, name, controller):
     #     #Completion1=com.add("completion")
     #     #helper.EditTimeout(Completion1,action[9])
     #     return config
-    # elif (name=="IngressFSM::LandHip"):
-    #     config = mc_rtc_rl.Configuration()
-    #     tasks = config.add("tasks")
-    #     com = tasks.add("com")
-    #     #com.add("weight",int(2000*(abs(action[0]))))
-    #     right_hip=tasks.add("right_hip")
-    #     right_hip.add_array("position",action[1:4]*0.5+[-0.254778,0.845367,0.819587])
-    #     #target.add_array("rotation",np.array(action[1:4]))
-    #     right_hip_ori=tasks.add("right_hip_ori")
-    #     right_hip_ori.add_array("orientation",np.concatenate([[0],action[4:7]*0.5])+[0.370327,0.671353,0.150604,0.624068])
-    #     #right_hip.add("weight",int(2000*(abs(action[8]))))
-    #     #right_hip_ori.add("weight",int(2000*(abs(action[8]))))
-    #     #Completion1=right_hip.add("completion")
-    #     #helper.EditTimeout(Completion1,action[9])
-    #     #Completion2=right_hip_ori.add("completion")
-    #     #helper.EditTimeout(Completion2,action[9])
-    #     return config
-    # elif (name=="IngressFSM::LandHipPhase2"):
-    #     config = mc_rtc_rl.Configuration()
-    #     tasks = config.add("tasks")
-    #     #com.add("weight",int(2000*(abs(action[0]))))
-    #     right_hip=tasks.add("RightHipRootAdmittance")
-    #     right_hip.add_array("stiffness",[1.0,1.0,10.0,10.0,10.0,50+action[1]*10.0])
-    #     right_hip.add_array("damping", [6.3, 6.3, 6.3, 6.3, 6.3, 8.1+action[2]*0.5])
-    #     right_hip.add_array("admittance", [0.0,0.0,0,0,0,0.009+0.002*action[3]])
-    #     #target.add_array("rotation",np.array(action[1:4]))
-    #     right_hip_ori=tasks.add("right_hip_ori")
-    #     right_hip_ori.add_array("orientation",np.concatenate([[0],action[4:7]*0.5])+[0.235011,0.693461,0.286154,0.618059])
-    #     #right_hip.add("weight",int(2000*(abs(action[8]))))ingress
-    #     #right_hip_ori.add("weight",int(2000*(abs(action[8]))))
-    #     #Completion1=right_hip.add("completion")
-    #     #helper.EditTimeout(Completion1,action[9])
-    #     #Completion2=right_hip_ori.add("completion")
-    #     #helper.EditTimeout(Completion2,action[9])
-    #     return config
-    # elif (name == "IngressFSM::AdjustCoM"):
-    #     config = mc_rtc_rl.Configuration()
-    #     tasks = config.add("tasks")
-    #     com = tasks.add("com")
-    #     com.add_array("com",np.array(action[1:4]*0.5+[0.0642257,-0.336135,0.916262]))
-    #     #com.add("weight",int(2000*(abs(action[8]))))
-    #     #Completion1=com.add("completion")
-    #     #helper.EditTimeout(Completion1,action[9])
-    # elif (name=="IngressFSM::PutLeftFoot::LiftFoot"):
-    #     config = mc_rtc_rl.Configuration()
-    #     tasks = config.add("tasks")
-    #     com=tasks.add("com")
-    #     com.add_array("move_com",np.array(action[1:4]*0.2+[-0.1,-0.6,0.0]))
-    #     #com.add("weight",int(1000*(abs(action[0]))))
-    #     left_foot=tasks.add("left_foot")
-    #     target=left_foot.add("target")
-    #     target.add_array("translation",np.array(action[4:7]*0.1+[0.311598, 0.90664, 0.451191]))
-    #     #left_foot.add("weight",int(2000*(abs(action[8]))))
-    #     #Completion1=com.add("completion")
-    #     #helper.EditTimeout(Completion1,action[9])
-    #     #Completion2=left_foot.add("completion")
-    #     #helper.EditTimeout(Completion2,action[9])
-    #     return config
-    # elif (name=="IngressFSM::PutLeftFoot::MoveFoot"):
-    #     config = mc_rtc_rl.Configuration()
-    #     tasks = config.add("tasks")
-    #     com=tasks.add("com")
-    #     com.add_array("move_com",np.array(action[1:4]*0.1))
-    #     #com.add("weight",int(1000*(abs(action[0]))))
-    #     left_foot=tasks.add("left_foot")
-    #     target=left_foot.add("target")
-    #     target.add_array("translation",np.array(action[4:7]*0.1+[0.34, 0.703, 0.421191]))
-    #     #left_foot.add("weight",int(2000*(abs(action[8]))))
-    #     #Completion1=com.add("completion")
-    #     #helper.EditTimeout(Completion1,action[9])
-    #     #Completion2=left_foot.add("completion")
-    #     #helper.EditTimeout(Completion2,action[9])
-    #     return config
-    # elif (name=="IngressFSM::PutLeftFoot::PutFoot"):
-    #     config = mc_rtc_rl.Configuration()
-    #     tasks = config.add("tasks")
-    #     com=tasks.add("com")
-    #     com.add_array("move_com",np.array(action[1:4]*0.1))
-    #     #com.add("weight",int(1000*(abs(action[0]))))
-    #     left_foot=tasks.add("left_foot")
-    #     target=left_foot.add("target")
-    #     target.add_array("translation",np.array(action[4:7]*0.1+[0.326003,0.63986,0.4065]))
-    #     #left_foot.add("weight",int(2000*(abs(action[8]))))
-    #     #Completion1=com.add("completion")
-    #     #helper.EditTimeout(Completion1,action[9])
-    #     #Completion2=left_foot.add("completion")
-    #     #helper.EditTimeout(Completion2,action[9])
-    #     return config
-    # elif (name=="IngressFSM::NudgeUp"):
-    #     config = mc_rtc_rl.Configuration()
-    #     tasks = config.add("tasks")
-    #     waist=tasks.add("waist_pos")
-    #     waist.add_array("position",np.array(action[1:4]*0.1)+[0.0173735,0.550307,1.16874])
-    #     #waist.add("weight",int(1000*(abs(action[0]))))
-    #     #Completion1=waist.add("completion")
-    #     #helper.EditTimeout(Completion1,action[9])
-    #     return config
-    # elif (name=="IngressFSM::ScootRight"):
-    #     config = mc_rtc_rl.Configuration()
-    #     tasks = config.add("tasks")
-    #     com=tasks.add("com")
-    #     com.add_array("com",np.array(action[1:4]*0.1)+[-0.19, 0.19,0.98])
-    #     #com.add("weight",int(1000*(abs(action[0]))))
-    #     body_pos=tasks.add("body_pos")
-    #     body_pos.add_array("position",np.array(action[4:7]*0.2)+[-0.114,0.13,1.26])
-    #     #Completion1=com.add("completion")
-    #     #helper.EditTimeout(Completion1,action[9])
-    #     #Completion2=body_pos.add("completion")
-    #     #helper.EditTimeout(Completion2,action[9])
-    #     return config
-    # elif (name=="IngressFSM::SitOnLeft"):
-    #     config = mc_rtc_rl.Configuration()
-    #     tasks = config.add("tasks")
-    #     left_hip=tasks.add("left_hip")
-    #     left_hip.add_array("position",np.array(action[4:7]*0.2)+[-0.109182, 0.406125,0.81])
-    #     #Completion1=left_hip.add("completion")
-    #     #helper.EditTimeout(Completion1,action[9])
-    #     return config
-    
-
     # add custom codes here. Remove all entries but the "base:" one. Enter them here.
     return mc_rtc_rl.Configuration.from_string("{}")
 
@@ -362,13 +242,11 @@ class OpenDoorEnv(gym.Env):
         #while self.sim.gc().running:
         "if previous state is done, proceed to next state by calling the fsm's next()"
         if (self.sim.gc().ready()):
-            print("bbbbbbbbbbbb")
             self.sim.gc().nextState()
             self.sim.stepSimulation()
             """gc().run() guarantees to make gc().nextState() false, which is necessary for proceeding to the next state; 
             Yet sim.stepSimulation() can't do that. So I have to put gc().run() here. Doesn' seem right, but it does the trick"""
             self.sim.gc().run()
-        print("cccccccccccccccc")
         "fsm state\'s teardown() is immediate followed by next state\'s start()"
         "so use the fsm executor's ready() to check stateDone and forget about done_cb"        
         #while (self.sim.gc().running):
@@ -387,7 +265,6 @@ class OpenDoorEnv(gym.Env):
                     render_ = self.sim.render()            
                 iter_+=1
             #print(iter_)
-        print("ffffffff")
         #now the fsm is ready to proceed to the next state
         "this is the state that has just finished execution"
         currentState = self.sim.gc().currentState()
@@ -412,7 +289,6 @@ class OpenDoorEnv(gym.Env):
         # observationd=np.concatenate([LHpose,RHpose,LFpose,RFpose,com,stateNumber])
         # observation = observationd.astype(np.float32)
         """observation space in in range(-10,+10)"""
-        print("eeeeeeeeeeee")
         com=self.sim.gc().real_com()
         #stateNumber=np.concatenate([[helper.StateNumber(name=currentState)],[]])#1
         stateVec=helper.StateNumber(name=currentState) #=NumOfTotalFSMStates, currently eight
@@ -434,7 +310,6 @@ class OpenDoorEnv(gym.Env):
         #LF_gripper_torque=np.clip(self.sim.gc().gripper_torque(),-200,200)/20.0#1
         observationd=np.concatenate([com,posW_trans,posW_rot,velW_trans,velW_rot,RH_pose,RF_pose,LF_pose,LH_pose,[door_door],[door_handle],stateVec])
         observation = observationd.astype(np.float32)
-        print("ddddddddddd")
         #reward: for grasping state, reward = inverse(distance between ef and bar)-time elapsed+stateDone, using the function from minDist.py
         #done: 
         #info: {}
@@ -450,28 +325,45 @@ class OpenDoorEnv(gym.Env):
         #reward-=self.sim.gc().duration()*1.0
 
         "if last state is done,done is True and reward+=500;also some states are more rewarding than others"
-        if (currentState=="IngressFSM::SitPrep"):
-            reward += 2500
+        if (currentState=="OpenDoorRLFSM::LHPushAgain"):
+            reward += 5000
             done = True
-        elif (currentState=="IngressFSM::LeftHandToBar"):
+        elif (currentState=="OpenDoorRLFSM::RH2HandleDown"):
             """better reduce the couple on both feet as an indicator for stability"""
-            LF_couple=self.sim.gc().EF_couple("LeftFoot")
-            reward +=50.0*np.exp(-1.0*abs(LF_couple[0]))
-            reward +=50.0*np.exp(-1.0*abs(LF_couple[1]))
-            RF_couple=self.sim.gc().EF_couple("RightFoot")
-            reward +=50.0*np.exp(-1.0*abs(RF_couple[0]))
-            reward +=50.0*np.exp(-1.0*abs(RF_couple[1]))
-            # reward is inversely related to the x-coponent of leftgripper's couple 
-            # #reward +=50.0*np.exp(-1.0*abs(LH_couple[1]))
-            #reward is also inversely related to the LH's distance to the bar 
-            p=np.array(self.sim.gc().EF_trans("LeftGripper"))
-            a=np.array([0.3886,0.6132,1.7415])
-            b=np.array([0.652,0.628,1.299])
-            minDist=np.abs(lineseg_dist(p,a,b)-0.022)
-            reward+=50.0*np.exp(-50*np.sqrt(minDist))
+            door_openning=self.sim.gc().door_door()
+            handle_openning = self.sim.gc().door_handle()
+            if (door_openning)<0.05:
+                reward+=100
+            reward+=50*np.exp(abs(handle_openning*10))
             if (self.Verbose):
-                print("Distance from gripper to bar is: ",minDist)
-                print("reward for gripper distance is", 500.0*np.exp(-50*minDist))
+                print("door openning is: ",door_openning)
+                print("handle openning is: ", handle_openning)                
+        elif (currentState=="OpenDoorRLFSM::RH2HandlePush"):
+            """better reduce the couple on both feet as an indicator for stability"""
+            door_openning=self.sim.gc().door_door()
+            handle_openning = self.sim.gc().door_handle()
+            if (door_openning)>0.05:
+                reward+=100
+            reward+=20*np.exp(abs(handle_openning*10))
+            if (self.Verbose):
+                print("door openning is: ",door_openning)
+                print("handle openning is: ", handle_openning)
+        elif (currentState=="OpenDoorRLFSM::LHPush"):
+            """better reduce the couple on both feet as an indicator for stability"""
+            door_openning=self.sim.gc().door_door()
+            handle_openning = self.sim.gc().door_handle()
+            reward+=50*np.exp(abs(door_openning*10))
+            if (self.Verbose):
+                print("door openning is: ",door_openning)
+                print("handle openning is: ", handle_openning)
+        elif (currentState=="OpenDoorRLFSM::LHPushAgain"):
+            """better reduce the couple on both feet as an indicator for stability"""
+            door_openning=self.sim.gc().door_door()
+            handle_openning = self.sim.gc().door_handle()
+            reward+=50*np.exp(abs(door_openning*10))
+            if (self.Verbose):
+                print("door openning is: ",door_openning)
+                print("handle openning is: ", handle_openning)
         elif (currentState=="IngressFSM::Grasp"):
             LH_couple=self.sim.gc().EF_couple("LeftGripper")
             # reward is inversely related to the x-coponent of leftgripper's couple 
