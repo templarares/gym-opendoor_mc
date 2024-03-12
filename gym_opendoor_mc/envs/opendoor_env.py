@@ -43,7 +43,7 @@ def done_callback(name, controller):
     #print("{} done, robot configuration: {}".format(name, controller.robot().q))
     pass
 def start_callback(action, name, controller):
-    print("{} starting to run".format(name))
+    # print("{} starting to run".format(name))
     if (
         name=="OpenDoorRLFSM::Standing" 
      ):
@@ -217,7 +217,6 @@ class OpenDoorEnv(gym.Env):
         # self.reset()
         pass
     def step(self, action):
-        print("asdfasdfasdfasdfasd")
         done=False
         "update the fsm state that is immediately to run"
         "this is the preceding state"
@@ -254,9 +253,9 @@ class OpenDoorEnv(gym.Env):
         render_=True
         # print("gc is running:%s"%self.sim.gc().running)
         # print("gc is ready:%s"%self.sim.gc().ready())      
-        currentState = self.sim.gc().currentState()
-        if (self.Verbose):
-            print("current state is %s"%currentState)  
+        # currentState = self.sim.gc().currentState()
+        # if (self.Verbose):
+        #     print("current state is %s"%currentState)  
         while (self.sim.gc().running and render_ and (not self.sim.gc().ready())):
             self.sim.stepSimulation()
             if(self.mjvisual):
@@ -335,6 +334,10 @@ class OpenDoorEnv(gym.Env):
             if (door_openning)<0.05:
                 reward+=100
             reward+=50*np.exp(abs(handle_openning*10))
+            # handle is not pushed down; terminate
+            if abs(handle_openning)<0.2:
+                done = True
+                reward -= 200
             if (self.Verbose):
                 print("door openning is: ",door_openning)
                 print("handle openning is: ", handle_openning)                
