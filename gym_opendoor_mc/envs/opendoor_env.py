@@ -333,7 +333,7 @@ class OpenDoorEnv(gym.Env):
             handle_openning = self.sim.gc().door_handle()
             if (door_openning)<0.05:
                 reward+=100
-            reward+=50*np.exp(abs(handle_openning*10))
+            reward+=50*np.exp(min(2.0,abs(door_openning*3)))
             # handle is not pushed down; terminate
             if abs(handle_openning)<0.2:
                 done = True
@@ -347,7 +347,7 @@ class OpenDoorEnv(gym.Env):
             handle_openning = self.sim.gc().door_handle()
             if (door_openning)>0.05:
                 reward+=100
-            reward+=20*np.exp(abs(handle_openning*10))
+            reward+=50*np.exp(min(2.0,abs(door_openning*3)))
             if (self.Verbose):
                 print("door openning is: ",door_openning)
                 print("handle openning is: ", handle_openning)
@@ -355,7 +355,7 @@ class OpenDoorEnv(gym.Env):
             """better reduce the couple on both feet as an indicator for stability"""
             door_openning=self.sim.gc().door_door()
             handle_openning = self.sim.gc().door_handle()
-            reward+=50*np.exp(abs(door_openning*10))
+            reward+=50*np.exp(min(2.0,abs(door_openning*3)))
             if (self.Verbose):
                 print("door openning is: ",door_openning)
                 print("handle openning is: ", handle_openning)
@@ -363,7 +363,7 @@ class OpenDoorEnv(gym.Env):
             """better reduce the couple on both feet as an indicator for stability"""
             door_openning=self.sim.gc().door_door()
             handle_openning = self.sim.gc().door_handle()
-            reward+=50*np.exp(abs(door_openning*10))
+            reward+=50*np.exp(min(2.0,abs(door_openning*3)))
             if (self.Verbose):
                 print("door openning is: ",door_openning)
                 print("handle openning is: ", handle_openning)
