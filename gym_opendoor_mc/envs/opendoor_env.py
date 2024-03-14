@@ -325,7 +325,7 @@ class OpenDoorEnv(gym.Env):
 
         "if last state is done,done is True and reward+=500;also some states are more rewarding than others"
         if (currentState=="OpenDoorRLFSM::LHPushAgain"):
-            reward += 5000
+            reward += 1000
             done = True
         elif (currentState=="OpenDoorRLFSM::RH2HandleDown"):
             """better reduce the couple on both feet as an indicator for stability"""
@@ -355,7 +355,9 @@ class OpenDoorEnv(gym.Env):
             """better reduce the couple on both feet as an indicator for stability"""
             door_openning=self.sim.gc().door_door()
             handle_openning = self.sim.gc().door_handle()
-            reward+=50*np.exp(min(2.0,abs(door_openning*3)))
+            # reward for door openning if the robot hasn't fallen
+            if (not done):
+                reward+=100*np.exp(min(5,abs(door_openning*2)))
             if (self.Verbose):
                 print("door openning is: ",door_openning)
                 print("handle openning is: ", handle_openning)
@@ -363,7 +365,9 @@ class OpenDoorEnv(gym.Env):
             """better reduce the couple on both feet as an indicator for stability"""
             door_openning=self.sim.gc().door_door()
             handle_openning = self.sim.gc().door_handle()
-            reward+=50*np.exp(min(2.0,abs(door_openning*3)))
+            # reward for door openning if the robot hasn't fallen
+            if (not done):
+                reward+=100*np.exp(min(5,abs(door_openning*3)))
             if (self.Verbose):
                 print("door openning is: ",door_openning)
                 print("handle openning is: ", handle_openning)
