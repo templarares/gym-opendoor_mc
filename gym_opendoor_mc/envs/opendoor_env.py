@@ -315,7 +315,7 @@ class OpenDoorEnv(gym.Env):
         done = False
         "for completing a state, the reward is 10 by default"
         if (self.sim.gc().running and render_==True):
-            reward = 10
+            reward = 100
         else:
             reward = 0
             self.failure=True
@@ -326,6 +326,11 @@ class OpenDoorEnv(gym.Env):
         "if last state is done,done is True and reward+=500;also some states are more rewarding than others"
         if (currentState=="OpenDoorRLFSM::LHPushAgain"):
             reward += 1000
+            # reward for door openning if the robot hasn't fallen
+            if (not done):
+                door_openning=self.sim.gc().door_door()
+                handle_openning = self.sim.gc().door_handle()
+                reward+=100*np.exp(min(5.0,abs(door_openning*10)))
             done = True
         elif (currentState=="OpenDoorRLFSM::RH2HandleDown"):
             """better reduce the couple on both feet as an indicator for stability"""
@@ -333,7 +338,8 @@ class OpenDoorEnv(gym.Env):
             handle_openning = self.sim.gc().door_handle()
             if (door_openning)<0.05:
                 reward+=100
-            reward+=50*np.exp(min(2.0,abs(door_openning*3)))
+            if (not done):
+                reward+=50*np.exp(min(3.5,abs(handle_openning*10)))
             # handle is not pushed down; terminate
             if abs(handle_openning)<0.2:
                 done = True
@@ -347,7 +353,8 @@ class OpenDoorEnv(gym.Env):
             handle_openning = self.sim.gc().door_handle()
             if (door_openning)>0.05:
                 reward+=100
-            reward+=50*np.exp(min(2.0,abs(door_openning*3)))
+            if (not done):
+                reward+=50*np.exp(min(5.0,abs(door_openning*10)))
             if (self.Verbose):
                 print("door openning is: ",door_openning)
                 print("handle openning is: ", handle_openning)
@@ -357,7 +364,7 @@ class OpenDoorEnv(gym.Env):
             handle_openning = self.sim.gc().door_handle()
             # reward for door openning if the robot hasn't fallen
             if (not done):
-                reward+=100*np.exp(min(5,abs(door_openning*2)))
+                reward+=100*np.exp(min(5.0,abs(door_openning*10)))
             if (self.Verbose):
                 print("door openning is: ",door_openning)
                 print("handle openning is: ", handle_openning)
@@ -365,9 +372,7 @@ class OpenDoorEnv(gym.Env):
             """better reduce the couple on both feet as an indicator for stability"""
             door_openning=self.sim.gc().door_door()
             handle_openning = self.sim.gc().door_handle()
-            # reward for door openning if the robot hasn't fallen
-            if (not done):
-                reward+=100*np.exp(min(5,abs(door_openning*3)))
+
             if (self.Verbose):
                 print("door openning is: ",door_openning)
                 print("handle openning is: ", handle_openning)
