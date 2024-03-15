@@ -332,6 +332,15 @@ class OpenDoorEnv(gym.Env):
                 handle_openning = self.sim.gc().door_handle()
                 reward+=100*np.exp(min(5.0,abs(door_openning*10)))
             done = True
+        elif (currentState=="OpenDoorRLFSM::RH2HandleAbove"):
+            p=np.array(self.sim.gc().EF_trans("RightHand"))
+            a=np.array([0.48,0.2,0.88])
+            b=np.array([0.48,-0.2,0.88])
+            minDist=abs(lineseg_dist(p,a,b)-0.01)
+            if (self.Verbose):
+                print("RightHand translation is: ",p)
+            if ((not done) and p[2]>0.85):
+                reward+=1000.0*np.exp(-5*minDist)
         elif (currentState=="OpenDoorRLFSM::RH2HandleDown"):
             """better reduce the couple on both feet as an indicator for stability"""
             door_openning=self.sim.gc().door_door()
