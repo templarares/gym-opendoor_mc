@@ -90,7 +90,7 @@ def start_callback(action, name, controller):
         config = mc_rtc_rl.Configuration()
         tasks = config.add("tasks")
         RH = tasks.add("RH")
-        RH.add_array("move_world",np.concatenate([action[0:7]*0.2])+[1,0, 0, 0, 0.0,0.02,-0.1])
+        RH.add_array("move_world",np.concatenate([action[0:7]*0.2])+[1,0, 0, 0, 0.0,-0.01,-0.1])
         # Completion1=left_hand.add("completion")
         # helper.EditTimeout(Completion1,action[9])
         return config
@@ -144,7 +144,7 @@ def start_callback(action, name, controller):
         CoM = tasks.add("CoM")
         LH = tasks.add("LH")
         #left_hand.add("weight",int(2000*(abs(action[0]))))
-        CoM.add_array("move_com",np.concatenate([action[0:1]*0.2,[0,0]])+[0.0,0.0,0.0])
+        CoM.add_array("move_com",np.concatenate([action[0:1]*0.01,[0,0]])+[0.0,0.0,0.0])
         #action=np.array([ 0.44949245, -0.23903632, -0.0928756,  -0.7057361,  -0.29943895, -0.3467496,  0.29004097,  0.0811981 ])
         target=LH.add("target")
         target.add_array("rotation",np.concatenate([[0],action[1:4]*0.2])+[0.75,0.002,-0.613,-0.23])
@@ -334,13 +334,14 @@ class OpenDoorEnv(gym.Env):
             done = True
         elif (currentState=="OpenDoorRLFSM::RH2HandleAbove"):
             p=np.array(self.sim.gc().EF_trans("RightHand"))
-            a=np.array([0.48,0.2,0.88])
-            b=np.array([0.48,-0.2,0.88])
+            a=np.array([0.48,0.2,1.10])
+            b=np.array([0.48,-0.2,1.10])
             minDist=abs(lineseg_dist(p,a,b)-0.01)
             if (self.Verbose):
                 print("RightHand translation is: ",p)
-            if ((not done) and p[2]>0.85):
-                reward+=1000.0*np.exp(-5*minDist)
+                print("minDist is: ",minDist)
+            if ((not done) and p[2]>1.08):
+                reward+=1000.0*np.exp(-10*minDist)
         elif (currentState=="OpenDoorRLFSM::RH2HandleDown"):
             """better reduce the couple on both feet as an indicator for stability"""
             door_openning=self.sim.gc().door_door()
@@ -350,7 +351,7 @@ class OpenDoorEnv(gym.Env):
             if (not done):
                 reward+=50*np.exp(min(3.5,abs(handle_openning*10)))
             # handle is not pushed down; terminate
-            if abs(handle_openning)<0.2:
+            if abs(handle_openning)<0.1:
                 done = True
                 reward -= 200
             if (self.Verbose):
